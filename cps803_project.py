@@ -9,8 +9,9 @@ Created on Mon Nov  1 13:35:15 2021
 import pandas as pd 
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import GaussianNB
 
-heart_data = pd.read_csv("/Users/elwadgedleh/Downloads/heart.csv")
+heart_data = pd.read_csv("heart.csv")
 heart_data = heart_data.drop('restecg', 1)
 heart_data = heart_data.drop('slp',1)
 heart_data = heart_data.drop('caa',1)
@@ -30,3 +31,8 @@ y_test = test_data.iloc[:,9]
 
 print(x_test)
 print(y_test)
+
+gnb = GaussianNB()
+y_pred = gnb.fit(x_train, y_train).predict(x_test)
+print("Number of mislabeled points out of a total %d points : %d"
+      % (x_test.shape[0], (y_test != y_pred).sum()))
