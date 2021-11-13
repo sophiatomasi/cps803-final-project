@@ -10,6 +10,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import GaussianNB
+import numpy as np
+from sklearn.naive_bayes import MultinomialNB
 
 heart_data = pd.read_csv("heart.csv")
 heart_data = heart_data.drop('restecg', 1)
@@ -32,7 +34,14 @@ y_test = test_data.iloc[:,9]
 print(x_test)
 print(y_test)
 
+# using Gaussian Naive Bayes
 gnb = GaussianNB()
 y_pred = gnb.fit(x_train, y_train).predict(x_test)
 print("Number of mislabeled points out of a total %d points : %d"
       % (x_test.shape[0], (y_test != y_pred).sum()))
+
+# using Multinomial Naive Bayes
+clf = MultinomialNB()
+clf.fit(x_train, y_train)
+
+print("Predicted target values for x: ", clf.predict(x_test))
