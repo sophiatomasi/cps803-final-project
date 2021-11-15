@@ -14,6 +14,8 @@ import numpy as np
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.linear_model import LogisticRegression
 from sklearn.naive_bayes import BernoulliNB
+from sklearn.model_selection import cross_val_score
+from sklearn.tree import DecisionTreeClassifier
 
 heart_data = pd.read_csv("heart.csv")
 heart_data = heart_data.drop('restecg', 1)
@@ -39,14 +41,17 @@ print(y_test)
 # using Gaussian Naive Bayes
 gnb = GaussianNB()
 y_pred = gnb.fit(x_train, y_train).predict(x_test)
+score_gnb = gnb.score(x_test, y_test)
+print("Score of GNB: ", score_gnb)
 print("Number of mislabeled points out of a total %d points : %d"
       % (x_test.shape[0], (y_test != y_pred).sum()))
 
 # using Multinomial Naive Bayes
-clf = MultinomialNB()
-clf.fit(x_train, y_train)
-
-print("Predicted target values for x: ", clf.predict(x_test))
+mnb = MultinomialNB()
+mnb.fit(x_train, y_train)
+score_mnb = mnb.score(x_test, y_test)
+print("Score of MNB: ", score_mnb)
+print("Predicted target values for x: ", mnb.predict(x_test))
 
 lr_model = LogisticRegression(random_state=0,max_iter=1000).fit(x_train, y_train)
 predicted_labels_lr = lr_model.predict(x_test)
@@ -58,3 +63,10 @@ bernoulli_nb_model.fit(x_train,y_train)
 predicted_labels_nb=bernoulli_nb_model.predict(x_test)
 score_bnb=bernoulli_nb_model.score(x_test,y_test) 
 print(score_bnb)
+
+# using Decision Tree
+dtc = DecisionTreeClassifier(random_state=0)
+dtc_score = cross_val_score(dtc, x_train, y_train, cv=10)
+dtc_accuracy = np.mean(dtc_score)
+print("Cross val score: ", dtc_score)
+print("DTC accuracy: ", dtc_accuracy)
