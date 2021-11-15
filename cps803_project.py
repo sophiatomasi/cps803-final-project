@@ -12,6 +12,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import GaussianNB
 import numpy as np
 from sklearn.naive_bayes import MultinomialNB
+from sklearn.linear_model import LogisticRegression
+from sklearn.naive_bayes import BernoulliNB
 
 heart_data = pd.read_csv("heart.csv")
 heart_data = heart_data.drop('restecg', 1)
@@ -45,3 +47,14 @@ clf = MultinomialNB()
 clf.fit(x_train, y_train)
 
 print("Predicted target values for x: ", clf.predict(x_test))
+
+lr_model = LogisticRegression(random_state=0,max_iter=1000).fit(x_train, y_train)
+predicted_labels_lr = lr_model.predict(x_test)
+score_lr=lr_model.score(x_test,y_test) 
+print(score_lr)
+
+bernoulli_nb_model = BernoulliNB()
+bernoulli_nb_model.fit(x_train,y_train)
+predicted_labels_nb=bernoulli_nb_model.predict(x_test)
+score_bnb=bernoulli_nb_model.score(x_test,y_test) 
+print(score_bnb)
