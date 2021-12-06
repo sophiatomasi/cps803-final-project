@@ -24,6 +24,9 @@ heart_data = heart_data.drop('caa',1)
 heart_data = heart_data.drop('thall',1)
 print(heart_data)
 
+#Removing data points: 303 rows, drop 150 
+#heart_data = heart_data.drop(heart_data.index[range(150)],axis=0)
+
 train_data, test_data = train_test_split(heart_data, test_size=0.2, random_state=42, shuffle=True)
 
 x_train = train_data.iloc[:,0:9]
@@ -54,6 +57,7 @@ print("Score of MNB: ", score_mnb)
 print("Predicted target values for x: ", mnb.predict(x_test))
 
 lr_model = LogisticRegression(random_state=0,max_iter=1000).fit(x_train, y_train)
+#lr_model = LogisticRegression(C=.3,random_state=0,max_iter=1000).fit(x_train, y_train)
 predicted_labels_lr = lr_model.predict(x_test)
 score_lr=lr_model.score(x_test,y_test) 
 print(score_lr)
