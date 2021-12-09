@@ -14,8 +14,6 @@ import numpy as np
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.linear_model import LogisticRegression
 from sklearn.naive_bayes import BernoulliNB
-from sklearn.model_selection import cross_val_score
-from sklearn.tree import DecisionTreeClassifier
 from sklearn import metrics
 import seaborn as sns
 from statsmodels.stats.outliers_influence import variance_inflation_factor
@@ -120,10 +118,3 @@ bernoulli_nb_model.fit(x_train,y_train)
 predicted_labels_nb=bernoulli_nb_model.predict(x_test)
 score_bnb=bernoulli_nb_model.score(x_test,y_test) 
 print(score_bnb)
-
-# using Decision Tree
-dtc = DecisionTreeClassifier(random_state=0)
-dtc_score = cross_val_score(dtc, x_train, y_train, cv=10)
-dtc_accuracy = np.mean(dtc_score)
-print("Cross val score: ", dtc_score)
-print("DTC accuracy: ", dtc_accuracy)
