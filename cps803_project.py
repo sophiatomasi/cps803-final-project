@@ -52,6 +52,9 @@ heart_data= heart_data.drop('thalachh',1)
 #Removing data points: 303 rows, drop 150 
 #heart_data = heart_data.drop(heart_data.index[range(150)],axis=0)
 
+#Dropping feature with highest dependancy 
+#heart_data = heart_data.drop('Age-Group',1)
+
 train_data, test_data = train_test_split(heart_data, test_size=0.3, random_state=42, shuffle=True)
 
 x_train = train_data.iloc[:,0:9]
