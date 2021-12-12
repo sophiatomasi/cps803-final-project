@@ -83,8 +83,8 @@ print("Score of MNB: ", score_mnb)
 print("Predicted target values for x: ", mnb.predict(x_test))
 
 # Logistic Regression
-lr_model = LogisticRegression(random_state=0,max_iter=1000).fit(x_train, y_train)
-#lr_model = LogisticRegression(C=.1,random_state=0,max_iter=1000).fit(x_train, y_train)
+#lr_model = LogisticRegression(random_state=0,max_iter=1000).fit(x_train, y_train)
+lr_model = LogisticRegression(C=.1,random_state=0,max_iter=1000).fit(x_train, y_train)
 #Store predictions
 predicted_labels_lr = lr_model.predict(x_test)
 #Overall accuracy of test set
