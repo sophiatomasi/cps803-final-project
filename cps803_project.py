@@ -82,14 +82,13 @@ score_mnb = mnb.score(x_test, y_test)
 print("Score of MNB: ", score_mnb)
 print("Predicted target values for x: ", mnb.predict(x_test))
 
-# Logistic Regression
+# using Logistic Regression
 lr_model = LogisticRegression(C=.1,random_state=0,max_iter=1000).fit(x_train, y_train)
 #Store predictions
 predicted_labels_lr = lr_model.predict(x_test)
 #Overall accuracy of test set
 score_lr=lr_model.score(x_test,y_test) 
 print("Score of LR: ", score_lr)
-
 
 predicted_labels_lr_train = lr_model.predict(x_train)
 score_lr_train = lr_model.score(x_train,y_train)
@@ -111,9 +110,3 @@ vif_data = pd.DataFrame()
 vif_data["VIF"] = [variance_inflation_factor(x_train.values, i) for i in range(x_train.values.shape[1])]
 vif_data["features"] = x_train.columns
 print(vif_data)
-
-bernoulli_nb_model = BernoulliNB()
-bernoulli_nb_model.fit(x_train,y_train)
-predicted_labels_nb=bernoulli_nb_model.predict(x_test)
-score_bnb=bernoulli_nb_model.score(x_test,y_test) 
-print(score_bnb)
